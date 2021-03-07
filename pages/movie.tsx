@@ -1,16 +1,21 @@
 import { GetServerSideProps } from 'next';
 import { MoviesView } from '../contentful/mappers/MoviesMapper';
 import { getMovies } from '../contentful/api';
-import styles from '../styles/Home.module.css';
 
 interface Props {
   movies: MoviesView[];
 }
 
-export default function Movie(props: Props) {
+export default function Movie({ movies }: Props) {
   return (
-    <div className={styles.container}>
-      <span className="title">{JSON.stringify(props.movies)} </span>
+    <div className="flex flex-col justify-center">
+      {movies.map((movie) => (
+        <div>
+          <h2 className="text-xl font-semibold">{movie.titulo}</h2>
+          <p>{movie.fecha}</p>
+          <img src={movie.imagen} />
+        </div>
+      ))}
     </div>
   );
 }
